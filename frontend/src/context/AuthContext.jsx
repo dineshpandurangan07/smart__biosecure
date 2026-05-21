@@ -15,6 +15,23 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(localUser));
     }
     setLoading(false);
+
+    // Response interceptor to catch 401 unauthorized and logout automatically
+    const interceptor = api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          // Automatic logout on token expiration / user deleted from DB
+          setUser(null);
+          localStorage.removeItem('userInfo');
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      api.interceptors.response.eject(interceptor);
+    };
   }, []);
 
   // Login handler
