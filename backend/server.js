@@ -32,17 +32,20 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Smart BioSecure Farm Portal API Server' });
 });
 
-// Database connection check middleware to fail fast on serverless environments
-app.use((req, res, next) => {
+// Database connection check middleware to fail fast or establish connection on serverless environments
+app.use(async (req, res, next) => {
   if (process.env.VERCEL || process.env.NETLIFY) {
     if (!process.env.MONGO_URI) {
       return res.status(503).json({
         message: 'Database is not configured. Please add the MONGO_URI environment variable in your Netlify site settings (under Site configuration -> Environment variables) to connect to your live MongoDB database.'
       });
     }
-    if (mongoose.connection.readyState !== 1 && mongoose.connection.readyState !== 2) {
+    try {
+      // Ensure the database is fully connected before any route handlers execute
+      await connectDB();
+    } catch (error) {
       return res.status(503).json({
-        message: 'Database connection is not active. Please check your MONGO_URI value or database server availability.'
+        message: error.message || 'Database connection is not active. Please check your MONGO_URI value or database server availability.'
       });
     }
   }
