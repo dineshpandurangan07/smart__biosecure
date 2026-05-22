@@ -110,7 +110,7 @@ const Register = () => {
                   <input
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => { setName(e.target.value); setFormError(''); }}
                     placeholder="e.g. John Doe"
                     className="w-full pl-11 glass-input text-xs"
                     required
@@ -128,7 +128,7 @@ const Register = () => {
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => { setEmail(e.target.value); setFormError(''); }}
                     placeholder="john@farm.com"
                     className="w-full pl-11 glass-input text-xs"
                     required
@@ -146,7 +146,7 @@ const Register = () => {
                   <input
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => { setPassword(e.target.value); setFormError(''); }}
                     placeholder="Min 6 characters"
                     className="w-full pl-11 glass-input text-xs"
                     required
@@ -164,7 +164,7 @@ const Register = () => {
                   <input
                     type="text"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => { setPhone(e.target.value); setFormError(''); }}
                     placeholder="+1 (555) 012-3456"
                     className="w-full pl-11 glass-input text-xs"
                   />
@@ -181,7 +181,7 @@ const Register = () => {
                   <input
                     type="text"
                     value={farmName}
-                    onChange={(e) => setFarmName(e.target.value)}
+                    onChange={(e) => { setFarmName(e.target.value); setFormError(''); }}
                     placeholder="e.g. BioShield Poultry complex"
                     className="w-full pl-11 glass-input text-xs"
                     required
@@ -194,7 +194,7 @@ const Register = () => {
                 <label className="text-xs font-semibold text-slate-300">System Role</label>
                 <select
                   value={role}
-                  onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => { setRole(e.target.value); setFormError(''); }}
                   className="w-full glass-input text-xs"
                 >
                   <option value="farmer" className="bg-slate-900 text-slate-100">Farmer / Operator</option>
@@ -207,7 +207,7 @@ const Register = () => {
                 <label className="text-xs font-semibold text-slate-300">Farm Livestock Focus</label>
                 <select
                   value={farmType}
-                  onChange={(e) => setFarmType(e.target.value)}
+                  onChange={(e) => { setFarmType(e.target.value); setFormError(''); }}
                   className="w-full glass-input text-xs"
                 >
                   <option value="pig" className="bg-slate-900 text-slate-100">Pig Farming Only</option>
