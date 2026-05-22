@@ -41,7 +41,7 @@ const Register = () => {
     setFormError('');
 
     if (!name || !email || !password || !farmName) {
-      setFormError('Please fill in all required fields');
+      setFormError('Please fill in all required fields (Name, Email, Password, Farm Name)');
       return;
     }
 
@@ -165,7 +165,7 @@ const Register = () => {
                     type="text"
                     value={phone}
                     onChange={(e) => { setPhone(e.target.value); setFormError(''); }}
-                    placeholder="+1 (555) 012-3456"
+                    placeholder="+91 98765 43210"
                     className="w-full pl-11 glass-input text-xs"
                   />
                 </div>
@@ -182,7 +182,7 @@ const Register = () => {
                     type="text"
                     value={farmName}
                     onChange={(e) => { setFarmName(e.target.value); setFormError(''); }}
-                    placeholder="e.g. BioShield Poultry complex"
+                    placeholder="e.g. BioShield Poultry Complex"
                     className="w-full pl-11 glass-input text-xs"
                     required
                   />
@@ -212,7 +212,7 @@ const Register = () => {
                 >
                   <option value="pig" className="bg-slate-900 text-slate-100">Pig Farming Only</option>
                   <option value="poultry" className="bg-slate-900 text-slate-100">Poultry Farming Only</option>
-                  <option value="both" className="bg-slate-900 text-slate-100">Both (Pig & Poultry)</option>
+                  <option value="both" className="bg-slate-900 text-slate-100">Both (Pig &amp; Poultry)</option>
                 </select>
               </div>
             </div>
@@ -243,7 +243,6 @@ const Register = () => {
 
           {/* Google Sign In/Register Component */}
           <GoogleSignInButton defaultRole="farmer" />
-
 
           {/* Footer Router link */}
           <div className="text-center mt-6">
