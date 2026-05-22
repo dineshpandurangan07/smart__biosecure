@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
 
 // Database connection check middleware to fail fast or establish connection
 app.use(async (req, res, next) => {
-  // If running in serverless and MONGO_URI is missing, fail fast with a helpful error
-  if ((process.env.VERCEL || process.env.NETLIFY) && !process.env.MONGO_URI) {
+  const isServerless = process.env.VERCEL || process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === 'production';
+  if (isServerless && !process.env.MONGO_URI) {
     return res.status(503).json({
       message: 'Database is not configured. Please add the MONGO_URI environment variable in your Netlify site settings (under Site configuration -> Environment variables) to connect to your live MongoDB database.'
     });

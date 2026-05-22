@@ -18,9 +18,11 @@ const connectDB = async () => {
 
   const uri = process.env.MONGO_URI;
 
+  const isServerless = process.env.VERCEL || process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === 'production';
+
   if (!uri) {
     console.warn('WARNING: MONGO_URI environment variable is not defined!');
-    if (process.env.VERCEL || process.env.NETLIFY) {
+    if (isServerless) {
       throw new Error('Database is not configured. Please add the MONGO_URI environment variable in your Netlify site settings (under Site configuration -> Environment variables) to connect to your live MongoDB database.');
     }
   }
@@ -40,7 +42,7 @@ const connectDB = async () => {
     } catch (error) {
       console.error(`Could not connect to standard database: ${error.message}`);
       
-      if (process.env.VERCEL || process.env.NETLIFY) {
+      if (isServerless) {
         throw new Error(`Database connection failed: ${error.message}. Please verify your MONGO_URI environment variable and database IP whitelist/firewall settings.`);
       }
 
