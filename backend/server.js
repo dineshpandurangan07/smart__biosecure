@@ -24,7 +24,17 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://smartbiosecur7.netlify.app',
+    'https://smartbiosecure7.netlify.app',
+    'https://smartbiosecure.netlify.app',
+    process.env.FRONTEND_URL,
+  ].filter(Boolean),
+  credentials: true,
+}));
 app.use(express.json());
 
 // API Base Root Check
@@ -80,10 +90,8 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-if (!process.env.VERCEL && !process.env.NETLIFY) {
-  app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+});
 
 export default app;

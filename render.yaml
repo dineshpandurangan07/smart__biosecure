@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: smart-biosecure-api
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        value: supersecret_biosecure_token_key_12345
